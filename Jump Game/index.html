@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jump Game</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 28px;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #34495e;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #1c2841;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #162036;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jump Game</h1>
+        <p>Enter the array (comma-separated):</p>
+        <input type="text" id="numsInput" placeholder="e.g., 2,3,1,1,4">
+        <br>
+        <button id="checkJump">Check if Last Index is Reachable</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function canJump(nums) {
+            let maxDistance = 0;
+            for (let i = 0; i < nums.length; i++) {
+                if (i > maxDistance) return false;
+                maxDistance = Math.max(maxDistance, i + nums[i]);
+                if (maxDistance >= nums.length - 1) return true;
+            }
+            return false;
+        }
+
+        document.getElementById("checkJump").addEventListener("click", function () {
+            const numsInput = document.getElementById("numsInput").value;
+            const nums = numsInput.split(",").map(Number);
+            const result = canJump(nums);
+            const resultDiv = document.getElementById("result");
+            
+            if (result) {
+                resultDiv.innerHTML = "Yes! You can reach the last index.";
+                resultDiv.className = "success";
+            } else {
+                resultDiv.innerHTML = "No! You can't reach the last index.";
+                resultDiv.className = "error";
+            }
+        });
+    </script>
+</body>
+</html>
